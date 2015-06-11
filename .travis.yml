@@ -18,6 +18,9 @@ after_success: |
   cargo doc &&
   echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
   sudo pip install ghp-import &&
-  mkdir ./doc-stage && cd doc-stage && mkdir stable2 && cd .. && cp -R target/doc doc-stage/stable2 && pwd &&
+  export GIT_TAG=$0.1 &&
+  git tag $GIT_TAG -a -m "Tagging from TravisCI" &&
+  git push -q https://$TAGPERM@github.com/RlonRyan/JBasicX --tags &&
+  mkdir ./doc-stage && cd doc-stage && mkdir stable && cd .. && cp -R target/doc doc-stage/stable && pwd &&
   ghp-import -n doc-stage/ &&
   git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
