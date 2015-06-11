@@ -1,3 +1,9 @@
+
+/// Returns version
+pub fn get_version() -> String {
+    "version 0.1".to_string()
+}
+
 fn main() {
-    println!("version 0.1");
+    println!("{}", get_version());
 }

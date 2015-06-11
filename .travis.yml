@@ -1,0 +1,23 @@
+os:
+  - linux
+  - osx
+language: rust
+rust:
+    - 1.0.0-beta
+
+sudo: true
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq libcurl4-openssl-dev libelf-dev libdw-dev binutils-dev
+script:
+    - cargo build --verbose
+    - cargo test --verbose
+after_success: |
+  [ $TRAVIS_BRANCH = master ] &&
+  [ $TRAVIS_PULL_REQUEST = false ] &&
+  cargo doc &&
+  echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
+  sudo pip install ghp-import &&
+  cp -R target/doc doc-staging/stable
+  ghp-import -n doc-staging &&
+  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
