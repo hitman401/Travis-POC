@@ -18,8 +18,6 @@ after_success: |
   cargo doc &&
   echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
   sudo pip install ghp-import &&
-  export GIT_TAG=v0.1 &&
-  git config --global user.email "krishnaof1988@gmail.com" &&
-  git config --global user.name "krishnaIndia" &&
+  export GIT_TAG=v0.1.1 &&
   git tag $GIT_TAG -a -m "Tagging from TravisCI" &&
   git push -q https://${GH_TOKEN}@github.com/krishnaIndia/Travis-POC --tags;
