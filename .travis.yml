@@ -19,4 +19,7 @@ after_success: |
   echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
   sudo pip install ghp-import &&
   export GIT_TAG=VB#0.1.1 &&
+  if [[ $GIT_TAG == VB_* ]]; then
+    echo "yes"
+  fi
   export VERSION=${GIT_TAG##*#} && echo $VERSION;
