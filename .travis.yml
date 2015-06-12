@@ -18,6 +18,6 @@ after_success: |
   cargo doc &&
   echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
   sudo pip install ghp-import &&
-  export GIT_TAG=v0.1.1 &&
-  git tag $GIT_TAG -a -m "Tagging from TravisCI" &&
-  git push -q https://${GH_TOKEN}@github.com/krishnaIndia/Travis-POC --tags;
+  export GIT_TAG=VB#0.1.1 &&
+  var=$(echo $string | awk -F"#" '{print $ID,$VERSION}')  &&
+  set -- $var && echo $ID for $VERSION;
