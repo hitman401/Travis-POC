@@ -21,8 +21,10 @@ after_success: |
   cd docs-stage &&
   git checkout gh-pages;
   echo BRANCH - $TRAVIS_BRANCH;
-  if [[ $TRAVIS_BRANCH == VB_* ]];  then
-    export VERSION=${TRAVIS_BRANCH##*_} &&
+  if [[ $TRAVIS_PULL_REQUEST ]];  then
+    PR_TITLE=$(curl -v --silent https://api.github.com/repos/krishnaIndia/Travis-POC/pulls/${TRAVIS_PULL_REQUEST} 2>&1 | grep title) &&
+    PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",);
+    VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
     mkdir $VERSION &&
     cp -r ../target/doc $VERSION;
