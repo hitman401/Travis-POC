@@ -21,13 +21,15 @@ after_success: |
   cd docs-stage &&
   git checkout gh-pages;
   echo BRANCH - $TRAVIS_BRANCH;
-  [ $TRAVIS_BRANCH == VB_* ] &&  
-  export VERSION=${TRAVIS_BRANCH##*_} &&
-  echo VERSION $VERSION &&
-  mkdir $VERSION &&
-  cd $VERSION &&
-  cp -r target/doc . &&
-  cd ..;
+  if [ $TRAVIS_BRANCH == VB_* ] ;
+  then
+    export VERSION=${TRAVIS_BRANCH##*_} &&
+    echo VERSION $VERSION &&
+    mkdir $VERSION &&
+    cd $VERSION &&
+    cp -r target/doc . &&
+    cd ..;
+  fi
   mkdir latest &&
   cp -r ../target/doc latest &&
   cd .. &&
