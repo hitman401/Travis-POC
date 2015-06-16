@@ -22,14 +22,6 @@ after_success: |
   git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
   cd docs-stage &&
   git checkout gh-pages;
-  if [[${TRAVIS_BRANCH} == VB_*]]; then  
-    export VERSION=${TRAVIS_BRANCH##*_} &&
-    echo VERSION $VERSION &&
-    mkdir $VERSION &&
-    cd $VERSION &&
-    cp -r target/doc . &&
-    cd ..;
-  fi
   mkdir latest &&
   cp -r ../target/doc latest &&
   cd .. &&
