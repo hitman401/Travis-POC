@@ -20,7 +20,7 @@ after_success: |
   git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
   cd docs-stage &&
   git checkout gh-pages;
-  [${TRAVIS_BRANCH} == VB_*] &&  
+  [ $TRAVIS_BRANCH == VB_* ] &&  
   export VERSION=${TRAVIS_BRANCH##*_} &&
   echo VERSION $VERSION &&
   mkdir $VERSION &&
@@ -30,5 +30,6 @@ after_success: |
   mkdir latest &&
   cp -r ../target/doc latest &&
   cd .. &&
-  ghp-import -n docs-stage/;
+  ghp-import -n docs-stage/ &&
+  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
  
