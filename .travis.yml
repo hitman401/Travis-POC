@@ -20,6 +20,7 @@ after_success: |
   git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
   cd docs-stage &&
   git checkout gh-pages;
+  echo BRANCH - $TRAVIS_BRANCH;
   [ $TRAVIS_BRANCH == VB_* ] &&  
   export VERSION=${TRAVIS_BRANCH##*_} &&
   echo VERSION $VERSION &&
