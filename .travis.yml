@@ -32,5 +32,4 @@ after_success: |
   fi
   mkdir latest &&
   cp -r ../target/doc latest &&
-  cd .. &&
-  PWD
+  cd ..;
