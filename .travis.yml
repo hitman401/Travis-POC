@@ -21,8 +21,7 @@ after_success: |
   cd docs-stage &&
   git checkout gh-pages;
   echo BRANCH - $TRAVIS_BRANCH;
-  if [ $TRAVIS_BRANCH == VB_* ] ;
-  then
+  if [[ $TRAVIS_BRANCH == VB_* ]];  then
     export VERSION=${TRAVIS_BRANCH##*_} &&
     echo VERSION $VERSION &&
     mkdir $VERSION &&
