@@ -26,15 +26,11 @@ after_success: |
     echo VERSION $VERSION &&
     mkdir $VERSION &&
     cp -r ../target/doc $VERSION;
-    git config --global user.email "krishnaof1988@gmail.com" &&
-    git config --global user.name "krishnaIndia" &&
-    git tag $VERSION -a -m "Tagging version" &&
-    git push -q https://${GH_TOKEN}@github.com/krishnaIndia/Travis-POC --tags;
   fi
   mkdir latest &&
   cp -r ../target/doc latest &&
   cd .. &&
   ls docs-stage &&
   ghp-import -n docs-stage/ &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
+  git push -fq https://${GH_TOKEN}@github.com/krishnaIndia/Travis-POC.git gh-pages;
  
