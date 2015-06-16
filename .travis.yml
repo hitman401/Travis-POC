@@ -25,9 +25,7 @@ after_success: |
     export VERSION=${TRAVIS_BRANCH##*_} &&
     echo VERSION $VERSION &&
     mkdir $VERSION &&
-    cd $VERSION &&
-    cp -r target/doc . &&
-    cd ..;
+    cp -r ../target/doc $VERSION;
   fi
   mkdir latest &&
   cp -r ../target/doc latest &&
