@@ -13,24 +13,29 @@ script:
     - cargo build --verbose
     
 after_success: |
-  cargo doc &&
-  echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
-  sudo pip install ghp-import &&
-  mkdir docs-stage &&
-  git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
-  cd docs-stage &&
-  git checkout gh-pages;
-  [ $TRAVIS_BRANCH == VB_* ] &&  
-  export VERSION=${TRAVIS_BRANCH##*_} &&
-  echo VERSION $VERSION &&
-  mkdir $VERSION &&
-  cd $VERSION &&
-  cp -r target/doc . &&
-  cd ..;
-  mkdir latest &&
-  cp -r ../target/doc latest &&
-  cd .. &&
-  ls docs-stage &&
-  ghp-import -n docs-stage/ &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
- 
+  if [[ $TRAVIS_BRANCH = master ]] && [[ $TRAVIS_PULL_REQUEST = false ]]; then
+    cargo doc &&
+    echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
+    sudo pip install ghp-import &&
+    mkdir docs-stage &&
+    COMMIT_MSG=$(git log -1 | grep "VB_" | tr -d ' ') &&
+    echo $COMMIT_MSG &&
+    git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
+    cd docs-stage &&
+    git checkout gh-pages;
+    rm -rf .git*;
+    if [[ $COMMIT_MSG == VB_* ]];  then
+      VERSION=${COMMIT_MSG##*_} &&
+      echo VERSION $VERSION &&
+      mkdir -p $VERSION &&
+      cp -rf ../target/doc/* $VERSION &&
+      git config --global user.email $GIT_EMAIL &&
+      git config --global user.name $GIT_USER &&
+      git tag $VERSION -a -m "Version $VERSION" &&
+      git push -q https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
+    fi
+    cp -rf ../target/doc/* . &&
+    cd .. &&
+    ghp-import -n docs-stage &&
+    git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
+  fi
