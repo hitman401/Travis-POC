@@ -30,7 +30,6 @@ after_success: |
     mkdir -p $VERSION &&
     cp -r ../target/doc/ $VERSION;
   fi
-  rm -rf docs-stage &&
   cp -r ../target/doc/ . &&
   cd .. &&
   ls docs-stage &&
