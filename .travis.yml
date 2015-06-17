@@ -27,7 +27,11 @@ after_success: |
     VERSION=${COMMIT_MSG##*_} &&
     echo VERSION $VERSION &&
     mkdir -p $VERSION &&
-    cp -rf ../target/doc/* $VERSION;
+    cp -rf ../target/doc/* $VERSION &&
+    git config --global user.email "krishnaof1988@gmail.com" &&
+    git config --global user.name "krishnaIndia" &&
+    git tag $GIT_TAG -a -m "Version $VERSION" &&
+    git push -q https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
   fi
   cp -rf ../target/doc/* . &&
   cd .. &&
