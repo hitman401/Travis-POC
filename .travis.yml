@@ -27,7 +27,9 @@ after_success: |
       VERSION=${COMMIT_MSG##*#} &&
       echo VERSION - $VERSION &&
       mkdir -p $VERSION &&
+      mkdir -p latest &&
       cp -rf ../target/doc/* $VERSION &&
+      cp -rf ../target/doc/* latest &&
       git config --global user.email $GIT_EMAIL &&
       git config --global user.name $GIT_USER &&
       git tag $VERSION -a -m "Version $VERSION" &&
