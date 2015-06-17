@@ -32,7 +32,6 @@ after_success: |
   fi
   mkdir latest &&
   cp -r ../Travis-POC/target/doc latest &&
-  cd .. &&
   ls docs-stage &&
   ghp-import -n docs-stage/ &&
   git remote -v &&
