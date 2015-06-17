@@ -24,8 +24,8 @@ after_success: |
     cd docs-stage &&
     git checkout gh-pages;
     rm -rf .git*;
-    if [[ $COMMIT_MSG == VB_* ]];  then
-      VERSION=${COMMIT_MSG##*_} &&
+    if [[ $COMMIT_MSG == Version Bump #* ]];  then
+      VERSION=${COMMIT_MSG##*#} &&
       echo VERSION $VERSION &&
       mkdir -p $VERSION &&
       cp -rf ../target/doc/* $VERSION &&
