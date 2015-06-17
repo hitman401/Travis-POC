@@ -25,7 +25,7 @@ after_success: |
   git log --merges --max-count=1;
   if [[ $TRAVIS_PULL_REQUEST ]];  then
     PR_TITLE=$(curl -v --silent https://api.github.com/repos/krishnaIndia/Travis-POC/pulls/${TRAVIS_PULL_REQUEST} 2>&1 | grep title) &&
-    PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",);
+    PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",) &&
     VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
     mkdir $VERSION &&
