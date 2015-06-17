@@ -18,7 +18,8 @@ after_success: |
     echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
     sudo pip install ghp-import &&
     mkdir docs-stage &&
-    COMMIT_MSG=$(git log -1 | grep "VB#" | tr -d ' ' | tr '[:upper:]' '[:lower:]') &&
+    COMMIT_MSG=$(git log -1 | grep "VB#" | tr -d ' ') &&
+    COMMIT_MSG=$(echo $COMMIT_MSG | tr '[:upper:]' '[:lower:]') &&
     echo $COMMIT_MSG &&
     git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
     cd docs-stage &&
