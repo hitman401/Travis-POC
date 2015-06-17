@@ -34,5 +34,5 @@ after_success: |
   cd .. &&
   ls docs-stage &&
   ghp-import -n docs-stage/ &&
-  git push -fq https://${GH_TOKEN}@github.com/krishnaIndia/Travis-POC.git gh-pages;
+  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
  
