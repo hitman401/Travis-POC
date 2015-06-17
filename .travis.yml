@@ -23,10 +23,8 @@ after_success: |
   cd docs-stage &&
   git checkout gh-pages;
   rm -rf .git*;
-  if [[ $TRAVIS_PULL_REQUEST ]];  then
-    PR_TITLE=$(curl -v --silent https://api.github.com/repos/krishnaIndia/Travis-POC/pulls/${TRAVIS_PULL_REQUEST} 2>&1 | grep title) &&
-    PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",) &&
-    VERSION=${PR_TITLE##*_} &&
+  if [[ $COMMIT_MSG == VB_* ]];  then
+    VERSION=${COMMIT_MSG##*_} &&
     echo VERSION $VERSION &&
     mkdir -p $VERSION &&
     cp -rf ../target/doc/* $VERSION;
