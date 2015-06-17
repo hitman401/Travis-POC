@@ -16,6 +16,7 @@ after_success: |
   cargo doc &&
   echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
   sudo pip install ghp-import &&
+  cd .. &&
   mkdir docs-stage &&
   git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
   cd docs-stage &&
@@ -27,14 +28,13 @@ after_success: |
     VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
     mkdir $VERSION &&
-    cp -r ../target/doc $VERSION;
+    cp -r ../Travis-POC/target/doc $VERSION;
   fi
   mkdir latest &&
-  cp -r ../target/doc latest &&
+  cp -r ../Travis-POC/target/doc latest &&
   cd .. &&
   ls docs-stage &&
   ghp-import -n docs-stage/ &&
-  git remote set-url origin https://github.com/${TRAVIS_REPO_SLUG}.git &&
   git remote -v &&
   git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
  
