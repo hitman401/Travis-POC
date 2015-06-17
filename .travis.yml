@@ -32,8 +32,8 @@ after_success: |
   fi
   mkdir latest &&
   cp -r ../Travis-POC/target/doc latest &&
-  ls docs-stage &&
-  ghp-import -n docs-stage/ &&
+  ls . &&
+  ghp-import -n . &&
   git remote -v &&
   git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
  
