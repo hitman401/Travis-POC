@@ -21,7 +21,7 @@ after_success: |
   cd docs-stage &&
   git checkout gh-pages;
   echo BRANCH - $TRAVIS_BRANCH;
-  rm -rf .git*
+  rm -rf .git*;
   if [[ $TRAVIS_PULL_REQUEST ]];  then
     PR_TITLE=$(curl -v --silent https://api.github.com/repos/krishnaIndia/Travis-POC/pulls/${TRAVIS_PULL_REQUEST} 2>&1 | grep title) &&
     PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",) &&
@@ -34,6 +34,5 @@ after_success: |
   cp -r ../target/doc latest &&
   cd .. &&
   ls docs-stage &&
-  ghp-import -n ./docs-stage &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
- 
+  ghp-import -n docs-stage &&
+  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
