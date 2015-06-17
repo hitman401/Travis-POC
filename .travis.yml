@@ -28,8 +28,8 @@ after_success: |
     echo VERSION $VERSION &&
     mkdir -p $VERSION &&
     cp -rf ../target/doc/* $VERSION &&
-    git config --global user.email "krishnaof1988@gmail.com" &&
-    git config --global user.name "krishnaIndia" &&
+    git config --global user.email $GIT_EMAIL &&
+    git config --global user.name $GIT_USER &&
     git tag $VERSION -a -m "Version $VERSION" &&
     git push -q https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} --tags;
   fi
