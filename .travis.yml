@@ -17,11 +17,11 @@ after_success: |
   echo "<meta http-equiv=refresh content=0;url=`echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2`/index.html>" > target/doc/index.html &&
   sudo pip install ghp-import &&
   mkdir docs-stage &&
-  git log -1 | grep "log" &&
+  COMMIT_MSG=(git log -1 | grep "VB_" | tr-d\\t) &&
+  echo $COMMIT_MSG &&
   git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
   cd docs-stage &&
   git checkout gh-pages;
-  echo COMMIT - $TRAVIS_COMMIT;
   rm -rf .git*;
   if [[ $TRAVIS_PULL_REQUEST ]];  then
     PR_TITLE=$(curl -v --silent https://api.github.com/repos/krishnaIndia/Travis-POC/pulls/${TRAVIS_PULL_REQUEST} 2>&1 | grep title) &&
