@@ -28,10 +28,11 @@ after_success: |
     VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
     mkdir -p $VERSION &&
-    cp -r ../target/doc $VERSION;
+    cp -r ../target/doc/ $VERSION;
   fi
+  rm -rf docs-stage &&
   mkdir -p latest &&
-  cp -r ../target/doc latest &&
+  cp -r ../target/doc/ latest &&
   cd .. &&
   ls docs-stage &&
   ghp-import -n docs-stage &&
