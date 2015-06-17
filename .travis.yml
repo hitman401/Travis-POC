@@ -28,10 +28,9 @@ after_success: |
     VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
     mkdir -p $VERSION &&
-    cp -r ../target/doc/* $VERSION;
+    cp -rf ../target/doc/* $VERSION;
   fi
-  cp -r ../target/doc/* . &&
+  cp -rf ../target/doc/* . &&
   cd .. &&
-  ls docs-stage &&
   ghp-import -n docs-stage &&
   git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
