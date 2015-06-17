@@ -27,10 +27,10 @@ after_success: |
     PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",) &&
     VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
-    mkdir $VERSION &&
+    mkdir -p $VERSION &&
     cp -r ../target/doc $VERSION;
   fi
-  mkdir latest &&
+  mkdir -p latest &&
   cp -r ../target/doc latest &&
   cd .. &&
   ls docs-stage &&
