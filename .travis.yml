@@ -20,17 +20,17 @@ after_success: |
   git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
   cd docs-stage &&
   git checkout gh-pages;
-  [ $TRAVIS_BRANCH == VB_* ] &&  
-  export VERSION=${TRAVIS_BRANCH##*_} &&
-  echo VERSION $VERSION &&
-  mkdir $VERSION &&
-  cd $VERSION &&
-  cp -r target/doc . &&
-  cd ..;
-  mkdir latest &&
-  cp -r ../target/doc latest &&
+  echo BRANCH - $TRAVIS_BRANCH;
+  rm -rf .git*;
+  if [[ $TRAVIS_PULL_REQUEST ]];  then
+    PR_TITLE=$(curl -v --silent https://api.github.com/repos/krishnaIndia/Travis-POC/pulls/${TRAVIS_PULL_REQUEST} 2>&1 | grep title) &&
+    PR_TITLE=$(echo ${PR_TITLE##*:} | tr -d \",) &&
+    VERSION=${PR_TITLE##*_} &&
+    echo VERSION $VERSION &&
+    mkdir -p $VERSION &&
+    cp -rf ../target/doc/* $VERSION;
+  fi
+  cp -rf ../target/doc/* . &&
   cd .. &&
-  ls docs-stage &&
-  ghp-import -n docs-stage/ &&
+  ghp-import -n docs-stage &&
   git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages;
- 
