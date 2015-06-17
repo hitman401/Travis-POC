@@ -28,9 +28,9 @@ after_success: |
     VERSION=${PR_TITLE##*_} &&
     echo VERSION $VERSION &&
     mkdir -p $VERSION &&
-    cp -r ../target/doc/ $VERSION;
+    cp -r ../target/doc/* $VERSION;
   fi
-  cp -r ../target/doc/ . &&
+  cp -r ../target/doc/* . &&
   cd .. &&
   ls docs-stage &&
   ghp-import -n docs-stage &&
