@@ -21,7 +21,7 @@ after_success: |
     COMMIT_MSG=$(git log -1 | tr '[:upper:]' '[:lower:]' | grep "version change to " | tr -d ' ') &&
     git clone https://github.com/${TRAVIS_REPO_SLUG}.git  docs-stage &&
     cd docs-stage &&
-    git checkout gh-pages;
+    git checkout --orphan gh-pages;
     rm -rf .git*;
     if [[ $COMMIT_MSG == versionchangeto* ]];  then
       VERSION=${COMMIT_MSG##*to} &&
